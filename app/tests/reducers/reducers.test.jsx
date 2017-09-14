@@ -1,5 +1,5 @@
 import expect from 'expect';
-import {articlesReducer, loadStatusReducer} from 'reducers';
+import {articlesReducer, loadStatusReducer, filterByNewestReducer} from 'reducers';
 
 describe('Reducers', () => {
     describe('loadArticlesReducer', () => {
@@ -29,6 +29,10 @@ describe('Reducers', () => {
             type: 'TOGGLE_LOAD_STATUS'
         };
 
+        let actionToggleFilterNewest = {
+            type: 'TOGGLE_FILTER_BY_NEWEST'
+        };
+
         it('should set page', () => {
             let res = articlesReducer({}, action);
             expect(res.page).toEqual(action.page)
@@ -42,6 +46,12 @@ describe('Reducers', () => {
         it('should toggle load status', () => {
             let status = false;
             let res = loadStatusReducer(status, actionToggleStatus);
+            expect(res).toEqual(!status);
+        });
+
+        it('should toggle filter by newest', () => {
+            let status = true;
+            let res = filterByNewestReducer(status, actionToggleFilterNewest);
             expect(res).toEqual(!status);
         })
     })

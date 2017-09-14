@@ -17,6 +17,15 @@ export let articlesReducer = (state = {page: 1, articles: [], last_pub_date: ''}
     }
 };
 
+export let filterByNewestReducer = (state = true, action) => {
+    switch (action.type) {
+        case 'TOGGLE_FILTER_BY_NEWEST':
+            return !state;
+        default:
+            return state;
+    }
+};
+
 export let loadStatusReducer = (state = false, action) => {
     switch (action.type) {
         case 'TOGGLE_LOAD_STATUS':
