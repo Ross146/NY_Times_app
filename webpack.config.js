@@ -2,6 +2,12 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const outputPath = path.resolve(__dirname, './app/public');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const extractStyle = new ExtractTextPlugin({
+    filename: '[name].css',
+    allChunks: true
+});
 
 const webpackConfig = {
     entry: [
@@ -32,20 +38,51 @@ const webpackConfig = {
                 use: 'babel-loader'
             },
             {
-                test: /\.(scss|sass)$/,
-                exclude: /node_modules/,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    'sass-loader'
-                ]
+                test: /\.(sass|scss|css)$/,
+                use: extractStyle.extract({
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                sourceMap: true,
+                                plugins: () => [
+                                    require('postcss-cssnext'),
+                                    require('lost')(),
+                                    require('postcss-reporter')()
+                                ]
+                            }
+                        },
+                        {
+                            loader: 'resolve-url-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        },
+                        {
+                            loader: 'sass-loader',
+                            options: {
+                                // sourceMap need be always true for working resolve-url-loader
+                                sourceMap: true
+                            }
+                        }
+                    ],
+                    fallback: 'style-loader'
+                })
             },
             {
-                test: /\.(gif|png|jpg|jpeg|svg)$/,
-                exclude: /node_modules/,
-                include: path.resolve(__dirname, './app'),
-                use: 'url-loader?limit=10000&name=assets/[name]-[hash].[ext]'
-            }
+                test: /\.(png|jpg|gif|svg)$/,
+                loader: 'url-loader',
+                options: {
+                    name:  'images/[name].[ext]',
+                    limit: 10000
+                }
+            },
         ]
     },
     plugins: [
@@ -55,7 +92,8 @@ const webpackConfig = {
             path: outputPath
         }),
         new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        extractStyle
     ],
     devServer: {
         contentBase: path.resolve(__dirname, './app/public'),
