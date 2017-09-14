@@ -5,7 +5,8 @@
   "main": "karma.conf.js",
   "scripts": {
     "test": "karma start",
-    "start": "node server.js"
+    "dev": "webpack-dev-server",
+    "start": "webpack | node server.js"
   },
   "author": "padalk46@gmail.com",
   "license": "ISC",
