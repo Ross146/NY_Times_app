@@ -25,7 +25,7 @@ INSTALATION
 git clone https://github.com/Ross146/NY_Times_app.git
 ~~~
 
-### Install 3-d party dependencies
+### Install 3-d party dependencies and running app
 
 **NPM**
 
