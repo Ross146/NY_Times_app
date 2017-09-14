@@ -4,6 +4,7 @@ import Header from './Header.jsx'
 import Footer from './Footer.jsx'
 import ArticleItem from './ArticleItem.jsx'
 import {startLoadPageArticles} from 'actions';
+import {filterArticles} from '../api/filter.js'
 
 export class Articles extends Component {
     componentDidUpdate() {
@@ -26,9 +27,10 @@ export class Articles extends Component {
     }
 
     render() {
-        let {news, loadStatus} = this.props;
+        let {news, loadStatus, filterByNewest} = this.props;
         let renderArticles = () => {
-            return news.articles.map((newsItem) => {
+            let filteredArticles = filterArticles(news.articles, filterByNewest);
+            return filteredArticles.map((newsItem) => {
                 return (
                     <ArticleItem key={newsItem._id} {...newsItem}/>
                 )

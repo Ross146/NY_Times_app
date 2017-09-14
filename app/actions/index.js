@@ -23,3 +23,9 @@ export let toggleLoadStatus = () => {
         type: 'TOGGLE_LOAD_STATUS'
     }
 };
+
+export let toggleFilterByNewest = () => {
+    return {
+        type: 'TOGGLE_FILTER_BY_NEWEST'
+    }
+};

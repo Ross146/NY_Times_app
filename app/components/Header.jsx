@@ -2,17 +2,21 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import AppConfig from 'AppConfig'
-
-let actions = require('../actions');
+import * as actions from 'actions'
 
 export class Header extends Component {
-    handleSelect (e) {
+    handleFilter (e) {
+        e.preventDefault();
+        let {dispatch} = this.props;
+        dispatch(actions.toggleFilterByNewest())
+    }
+    handleSelect () {
         let {dispatch} = this.props;
         let value = this.refs.pageSelect.value;
         dispatch(actions.startLoadPageArticles(value));
     }
     render () {
-        let {news} = this.props;
+        let {news, filterByNewest} = this.props;
         let generateOptions = () => {
             let options = [];
             for (let i = 1; i <= AppConfig.app.maxPages; i++) {
@@ -31,7 +35,7 @@ export class Header extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="medium-9 small-full column">
+                    <div className="medium-7 small-full column">
                         <ul className="menu header__menu-hover-lines">
                             <li className="active">
                                 <Link to="/">Home</Link>
@@ -40,6 +44,9 @@ export class Header extends Component {
                                 <a href="https://www.nytimes.com">Ny Times Official</a>
                             </li>
                         </ul>
+                    </div>
+                    <div className="medium-2 small-full column header__filter">
+                        <a href="#" onClick={this.handleFilter.bind(this)}>filter {(filterByNewest ? 'oldest': 'newest')}</a>
                     </div>
                     <div className="medium-3 small-full column">
                         <form>

@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import {startLoadPageArticles, loadNews, toggleLoadStatus} from 'actions';
+import {startLoadPageArticles, loadNews, toggleLoadStatus, toggleFilterByNewest} from 'actions';
 
 import expect from 'expect';
 
@@ -15,6 +15,10 @@ describe('Actions', () => {
 
     let actionToggleStatus = {
         type: 'TOGGLE_LOAD_STATUS'
+    };
+
+    let actionToggleFilterNewest = {
+        type: 'TOGGLE_FILTER_BY_NEWEST'
     };
 
     it('should generate load articles action', () => {
@@ -38,5 +42,10 @@ describe('Actions', () => {
     it('should generate toggle load status action', () => {
         let res = toggleLoadStatus();
         expect(res).toEqual(actionToggleStatus);
+    });
+
+    it('should generate toggle filter by newest action', () => {
+        let res = toggleFilterByNewest();
+        expect(res).toEqual(actionToggleFilterNewest);
     })
 });
