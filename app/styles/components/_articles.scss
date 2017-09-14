@@ -1,0 +1,37 @@
+.articles {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 65px;
+  &__item {
+    padding: 5px 0;
+    border-bottom: 3px solid transparent;
+    transition: border-color .3s;
+    a {
+      color: $black;
+      font-size: 18px;
+    }
+    &__date {
+      color: $dark-gray;
+      font-size: .8em
+    }
+    &__headline {
+      padding-left: 1em;
+    }
+    &__snippet {
+      font-size: .8em;
+      color: $dark-gray;
+      display: block
+    }
+    &:hover {
+      border-color: $primary-color
+    }
+  }
+}
+
+@media screen and (max-width: 640px){
+  .articles {
+    &__item a {
+      font-size: 14px;
+    }
+  }
+}

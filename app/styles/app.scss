@@ -1,0 +1,13 @@
+@import "base/variables";
+
+//Foundation
+@import "~foundation-sites/scss/foundation";
+@include foundation-grid;
+@include foundation-everything;
+
+// Components
+@import "components/_header";
+@import "components/_footer";
+@import "components/_articles";
+
+
