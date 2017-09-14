@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import {startLoadPageArticles, loadNews} from 'actions';
+import {startLoadPageArticles, loadNews, toggleLoadStatus} from 'actions';
 
 import expect from 'expect';
 
@@ -11,6 +11,10 @@ describe('Actions', () => {
         type: 'LOAD_ARTICLES',
         page: 2,
         articles: []
+    };
+
+    let actionToggleStatus = {
+        type: 'TOGGLE_LOAD_STATUS'
     };
 
     it('should generate load articles action', () => {
@@ -24,10 +28,15 @@ describe('Actions', () => {
 
         store.dispatch(startLoadPageArticles(page)).then(() => {
            const actions = store.getActions();
-           expect(actions[0].type).toEqual(action.type);
-           expect(actions[0].page).toEqual(action.page);
-           expect(actions[0].articles.length).toEqual(10);
+           expect(actions[1].type).toEqual(action.type);
+           expect(actions[1].page).toEqual(action.page);
+           expect(actions[1].articles.length).toEqual(10);
            done();
         }).catch(done);
+    });
+
+    it('should generate toggle load status action', () => {
+        let res = toggleLoadStatus();
+        expect(res).toEqual(actionToggleStatus);
     })
 });

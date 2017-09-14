@@ -4,8 +4,8 @@ export let startLoadPageArticles = (page = 1) => {
     return(dispatch, getState) => {
         dispatch(toggleLoadStatus());
         return getArticlesPerPage(page).then((articles) => {
-            dispatch(toggleLoadStatus());
             dispatch(loadNews(page, articles));
+            dispatch(toggleLoadStatus());
         });
     }
 };

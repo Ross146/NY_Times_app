@@ -1,5 +1,5 @@
 import expect from 'expect';
-import {articlesReducer} from 'reducers';
+import {articlesReducer, loadStatusReducer} from 'reducers';
 
 describe('Reducers', () => {
     describe('loadArticlesReducer', () => {
@@ -13,7 +13,7 @@ describe('Reducers', () => {
                     main: 'example headline'
                 },
                 _id: '123',
-                pub_date: "2017-09-11T09:18:31+0000"
+                pub_date: '2017-09-11T09:18:31+0000'
             }, {
                 web_url: 'ny-times.com',
                 snippet: 'example snippet',
@@ -21,8 +21,12 @@ describe('Reducers', () => {
                     main: 'example headline'
                 },
                 _id: '124',
-                pub_date: "2017-09-11T09:18:31+0000"
+                pub_date: '2017-09-11T09:18:31+0000'
             }]
+        };
+
+        let actionToggleStatus = {
+            type: 'TOGGLE_LOAD_STATUS'
         };
 
         it('should set page', () => {
@@ -34,5 +38,11 @@ describe('Reducers', () => {
             let res = articlesReducer({}, action);
             expect(res.articles).toEqual(action.articles)
         });
+
+        it('should toggle load status', () => {
+            let status = false;
+            let res = loadStatusReducer(status, actionToggleStatus);
+            expect(res).toEqual(!status);
+        })
     })
 });
