@@ -16,3 +16,12 @@ export let articlesReducer = (state = {page: 1, articles: [], last_pub_date: ''}
             return state;
     }
 };
+
+export let loadStatusReducer = (state = false, action) => {
+    switch (action.type) {
+        case 'TOGGLE_LOAD_STATUS':
+            return !state;
+        default:
+            return state;
+    }
+};

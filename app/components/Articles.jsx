@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
 import Header from './Header.jsx'
 import Footer from './Footer.jsx'
 import ArticleItem from './ArticleItem.jsx'
@@ -9,15 +9,15 @@ export class Articles extends Component {
     componentDidUpdate() {
         let {news} = this.props;
         if (news.page == 1) {
-            window.history.pushState("", "", '/')
+            window.history.pushState('', '', '/')
         } else {
-            window.history.pushState("", "", `/?page=${news.page}`)
+            window.history.pushState('', '', `/?page=${news.page}`)
         }
     }
 
     componentWillMount() {
         let searchParams = new URLSearchParams(window.location.search);
-        let page = searchParams.get("page");
+        let page = searchParams.get('page');
         if (page > 1) {
             this.props.dispatch(startLoadPageArticles(page));
         } else {
@@ -25,26 +25,19 @@ export class Articles extends Component {
         }
     }
 
-    render () {
-        let {news} = this.props;
+    render() {
+        let {news, loadStatus} = this.props;
         let renderArticles = () => {
-
-            if (news.length === 0) {
-                return (
-                    <p>Loading</p>
-                )
-            }
-
             return news.articles.map((newsItem) => {
                 return (
-                        <ArticleItem key={newsItem._id} {...newsItem}/>
+                    <ArticleItem key={newsItem._id} {...newsItem}/>
                 )
             })
         };
         return (
-            <div>
+            <div className={(loadStatus ? 'mask' : '')}>
                 <Header/>
-                <div className="row articles column">
+                <div className='row articles column'>
                     {renderArticles()}
                 </div>
                 <Footer/>

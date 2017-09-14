@@ -1,11 +1,12 @@
 import * as redux from 'redux';
 import thunk from 'redux-thunk';
 
-import {articlesReducer,} from '../reducers';
+import {articlesReducer, loadStatusReducer} from '../reducers';
 
 let configure = (initialState = {}) => {
     let reducer = redux.combineReducers({
-        news: articlesReducer
+        news: articlesReducer,
+        loadStatus: loadStatusReducer
     });
 
     let store = redux.createStore(reducer, initialState, redux.compose(

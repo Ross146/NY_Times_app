@@ -55,7 +55,7 @@ DEVELOPMENT
 
 To run dev mode (webpack-dev-server):
 ```#!bash
-npm dev
+npm run dev
 ```
 
 The app will be available on host:
